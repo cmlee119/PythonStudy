@@ -1,3 +1,6 @@
+import sys
+sys.stdin = open("./Algorithm/Day3BFS.txt", "r")
+
 import bisect
 import collections as std
 

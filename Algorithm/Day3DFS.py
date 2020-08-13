@@ -3,7 +3,7 @@ sys.stdin = open("./Algorithm/Day3DFS.txt", "r")
 
 import bisect
 
-def DFS(listPath, currentNode, setCheck):
+def DFS(listPath, currentNode, setCheck = set()):
     print(currentNode, end=' ')
     setCheck.add(currentNode)
     for nextNode in listPath[currentNode]:
@@ -22,6 +22,5 @@ for test_case in range(1, T + 1):
         bisect.insort(listPath[U], V)
         bisect.insort(listPath[V], U)
 
-    setCheck = set()
-    DFS(listPath, 0, setCheck)
+    DFS(listPath, 0)
     print()

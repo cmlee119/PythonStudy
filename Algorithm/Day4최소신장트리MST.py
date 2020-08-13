@@ -1,3 +1,6 @@
+import sys
+sys.stdin = open("./Algorithm/Day4최소신장트리MST.txt", "r")
+
 import heapq
 
 T = int(input())
@@ -24,6 +27,9 @@ for test_case in range(1, T + 1):
         for nextNode, nextCost in listEdge[currentNode]:
             if nextNode in listCheck:
                 continue
+            # if nextCost <= listNode[nextNode][1]:
+            #     listNode[nextNode][1] = nextCost
+            #     listNode[nextNode][0] = currentNode
 
             heapq.heappush(hq, (nextCost, nextNode))
 

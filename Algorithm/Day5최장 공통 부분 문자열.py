@@ -17,27 +17,14 @@ for test_case in range(1, T + 1):
 
     matData = [[0] * len(strB) for _ in range(len(strA))]
 
-    for i in range(len(strA) - 1, -1, -1):
-        for j in range(len(strB) -1, -1, -1):
+    for i in range(0, len(strA)):
+        for j in range(0, len(strB)):
             if strA[i] == strB[j]:
-                if i + 1 < len(strA) and j + 1 < len(strB):
-                    DP =  matData[i + 1][j + 1]
-                else:
-                    DP = 0
-                
+                DP =  matData[i - 1][j - 1] if i - 1 >= 0 and j - 1 >= 0 else 0
                 matData[i][j] = 1 + DP
-
             else:
-                if i + 1 < len(strA):
-                    DP_i = matData[i + 1][j]
-                else:
-                    DP_i = 0
+                DP_U = matData[i - 1][j] if i - 1 >= 0 else 0
+                DP_L = matData[i][j - 1] if j - 1 >= 0 else 0
+                matData[i][j] =  max(DP_U, DP_L)
 
-                if j + 1 < len(strB):
-                    DP_j = matData[i][j + 1]
-                else:
-                    DP_j = 0
-
-                matData[i][j] =  max(DP_i, DP_j)
-
-    print(matData[0][0])
+    print(matData[-1][-1])

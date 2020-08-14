@@ -9,18 +9,11 @@ for test_case in range(1, T + 1):
 
     matResult = [[0] * M for _ in range(N)]
 
-    for i in range(N - 1, -1, -1):
-        for j in range(M - 1, -1, -1):
-            if j + 1 < M:
-                DP_R = matResult[i][j + 1]
-            else:
-                DP_R = 0
+    for i in range(0, N):
+        for j in range(0, M):
+            DP_L = matResult[i][j - 1] if j >= 0 else 0
+            DP_U = matResult[i - 1][j] if i >= 0 else 0
 
-            if i + 1 < N:
-                DP_D = matResult[i + 1][j]
-            else:
-                DP_D = 0
+            matResult[i][j] = matBoard[i][j] + max(DP_L, DP_U)
 
-            matResult[i][j] = matBoard[i][j] + max(DP_R, DP_D)
-
-    print(matResult[0][0])
+    print(matResult[-1][-1])

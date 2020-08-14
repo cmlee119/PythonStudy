@@ -5,36 +5,36 @@ import heapq
 
 T = int(input())
 for test_case in range(1, T + 1):
-    N, M = map(int, input().split())
+    N, M = (int(n) for n in input().split())
 
     listEdge = [[] for _ in range(N)]
-
     for _ in range(M):
-        U, V, C = map(int, input().split())
+        U, V, C = (int(n) for n in input().split())
         listEdge[U].append((V, C))
 
-    listCheck = [None for _ in range(N)]
-    listCheck[0] = 0
+    visited = [False for _ in range(N)]
     hq = []
     heapq.heappush(hq, (0, 0))
+
+    endNode = N - 1
 
     result = -1
 
     while len(hq) > 0:
-        currentNode, currentCost = heapq.heappop(hq)
+        currentCost, currentNode = heapq.heappop(hq)
+        
+        visited[currentNode] = True
 
-        for nextNode, nextCost in listEdge[currentNode]:
-            cost = currentCost + nextCost
+        if currentNode == endNode:
+            result = currentCost
+            break
 
-            if listCheck[nextNode] != None and cost >= listCheck[nextNode]:
+        for node, cost in listEdge[currentNode]:
+            nextCost = currentCost + cost
+
+            if visited[node] == True:
                 continue
 
-            listCheck[nextNode] = cost
-
-            if nextNode == N - 1:
-                result = cost
-                break
-
-            heapq.heappush(hq, (nextNode, cost))
+            heapq.heappush(hq, (nextCost, node))
 
     print(result)

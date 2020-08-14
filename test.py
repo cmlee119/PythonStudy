@@ -1,34 +1,23 @@
-import heapq
-
 T = int(input())
 for test_case in range(1, T + 1):
-    N, M = map(int, input().split())
+    N, M = (int(n) for n in input().split())
 
-    listEdge = [[] for _ in range(N)]
+    matBoard = [[int(n) for n in input().split()] for _ in range(N)]
 
-    for _ in range(M):
-        U, V, C = map(int, input().split())
-        listEdge[U].append((V, C))
-        listEdge[V].append((U, C))
+    matResult = [[0] * M for _ in range(N)]
 
-    listNode = []
+    for i in range(N - 1, -1, -1):
+        for j in range(M - 1, -1, -1):
+            if j + 1 < M:
+                DP_R = matResult[i][j + 1]
+            else:
+                DP_R = 0
 
-    listCheck = set()
-    hq = []
-    heapq.heappush(hq, (0, 0))
-    for _ in range(N):
-        currentCost, currentNode = heapq.heappop(hq)
-        listCheck.add(currentNode)
-        listNode.append((currentCost, currentNode))
+            if i + 1 < N:
+                DP_D = matResult[i + 1][j]
+            else:
+                DP_D = 0
 
-        for nextNode, nextCost in listEdge[currentNode]:
-            if nextNode in listCheck:
-                continue
+            matResult[i][j] = matBoard[i][j] + max(DP_R, DP_D)
 
-            heapq.heappush(hq, (nextCost, nextNode))
-
-    result = 0
-    for node in listNode[1:]:
-        result += node[0]
-
-    print(result)
+    print(matResult[0][0])

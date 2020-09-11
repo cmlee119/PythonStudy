@@ -14,7 +14,7 @@ for test_case in range(1, T + 1):
         listEdge[U].append((V, C))
         listEdge[V].append((U, C))
 
-    listNode = []
+    result = 0
 
     listCheck = set()
     hq = []
@@ -25,13 +25,12 @@ for test_case in range(1, T + 1):
                 continue
 
         listCheck.add(currentNode)
-        listNode.append(currentCost)
+        result += currentCost
 
         for nextNode, nextCost in listEdge[currentNode]:
+            if nextNode in listCheck:
+                continue
+            
             heapq.heappush(hq, (nextCost, nextNode))
-
-    result = 0
-    for node in listNode[1:]:
-        result += node
 
     print(result)

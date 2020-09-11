@@ -5,12 +5,11 @@ T = int(input())
 for test_case in range(1, T + 1):
     N = int(input())
 
-    listStep = [0, 1, 1]
+    listStep = [1, 2, 4]
 
     modNum = 1904101441
 
-    i = N
-    for i in range(N - 1):
-        listStep[i % 3] = ((listStep[0] % modNum + listStep[1] % modNum) % modNum + listStep[2] % modNum) % modNum
+    for _ in range(N - 1):
+        listStep = [listStep[1], listStep[2], sum(listStep) % modNum]
 
-    print(listStep[i % 3])
+    print(listStep[0])

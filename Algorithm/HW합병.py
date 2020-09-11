@@ -30,5 +30,3 @@ for test_case in range(1, T + 1):
         indexResult += 1
 
     print(*listResult)
-
-    

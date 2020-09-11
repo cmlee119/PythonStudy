@@ -1,23 +1,40 @@
+def findLevelAndIndex(point):
+    left = right = 1
+    level = 0
+    while True:
+        if left <= point and point <= right:
+            for i in range(level + 1):
+                if point == left + i:
+                    return level, i
+            else: 
+                return level, 0
+        
+        level += 1
+        left += level
+        right = left + level
+
+def myFunc(a, b):
+    upperPoint = min(a, b)
+    lowerPoint = max(a, b)
+
+    upperLevel, upperIndex = findLevelAndIndex(upperPoint)
+    lowerLevel, lowerIndex = findLevelAndIndex(lowerPoint)
+
+    levelDiff = lowerLevel - upperLevel
+
+    if lowerIndex <= upperIndex:
+        indexDiff = upperIndex - lowerIndex
+    elif lowerIndex >= upperIndex + levelDiff:
+        indexDiff = lowerIndex - (upperIndex + levelDiff)
+    else:
+        indexDiff = 0
+
+    return levelDiff + indexDiff
+
 T = int(input())
 for test_case in range(1, T + 1):
-    N, M = (int(n) for n in input().split())
+    a, b = tuple(int(n) for n in input().split())
 
-    matBoard = [[int(n) for n in input().split()] for _ in range(N)]
+    result = myFunc(a, b)
 
-    matResult = [[0] * M for _ in range(N)]
-
-    for i in range(N - 1, -1, -1):
-        for j in range(M - 1, -1, -1):
-            if j + 1 < M:
-                DP_R = matResult[i][j + 1]
-            else:
-                DP_R = 0
-
-            if i + 1 < N:
-                DP_D = matResult[i + 1][j]
-            else:
-                DP_D = 0
-
-            matResult[i][j] = matBoard[i][j] + max(DP_R, DP_D)
-
-    print(matResult[0][0])
+    print(f"#{test_case} {result}")

@@ -1,15 +1,6 @@
 import sys
 sys.stdin = open("./Algorithm/Day5최장 공통 부분 문자열.txt", "r")
 
-def myFunc(strA, i, strB, j):
-    if i >= len(strA) or j >= len(strB):
-        return 0
-
-    if strA[i] == strB[j]:
-        return 1 + myFunc(strA, i + 1, strB, j + 1)
-
-    return max(myFunc(strA, i + 1, strB, j), myFunc(strA, i, strB, j + 1))
-
 T = int(input())
 for test_case in range(1, T + 1):
     strA = input()

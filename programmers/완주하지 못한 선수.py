@@ -1,3 +1,5 @@
+import heapq
+
 def solution(participant, completion):
     participant.sort()  #nlogn
     completion.sort()   #nlogn
